@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import {Route, Link, Switch} from 'react-router-dom';
-import { PROJECT_PATH, BLOG_PATH, HIRE_ME_PATH} from './constants';
+import {Route, Switch} from 'react-router-dom';
+import Helmet from 'react-helmet';
+import { PROJECT_PAGE, BLOG_PAGE, CONTACT_PAGE} from './constants';
 
-import  Body from '../../components/App';
+import  Body, {Header} from '../../components/App';
+import NavBar, {NavItem, NavLink} from '../../components/App/navbar';
 import './App.css';
 import HomePage from '../HomePage';
 import ProjectsPage from '../Projects';
 import BlogPage from '../Blog';
-import HireMePage from '../HireMe';
+import ContactPage from '../Contact';
+import { withRouter } from "react-router";
 
 
 //The local state of App will contain meta information about projects.
@@ -19,11 +22,29 @@ class App extends Component {
 
 
   render() {
+
+    const props = this.props;
+    console.log(props);
     return (
       <div className="App">
-        <header className="App-header">
-         
-        </header>
+        
+        <Helmet>
+          <title> Chrisbtreats</title>
+
+        </Helmet>
+        
+        <Header>
+        <NavBar>
+
+
+
+
+          <NavItem> <NavLink to={PROJECT_PAGE.path} location = {props.location}> {PROJECT_PAGE.name} </NavLink></NavItem>
+          <NavItem> <NavLink to={BLOG_PAGE.path}  location = {props.location}> {BLOG_PAGE.name} </NavLink></NavItem>
+          <NavItem> <NavLink to={CONTACT_PAGE.path}  location = {props.location}> {CONTACT_PAGE.name}</NavLink></NavItem>
+          </NavBar>
+
+        </Header>
       
         <Body>
         <Switch>
@@ -37,9 +58,9 @@ class App extends Component {
 
         }}/>
 
-        <Route path = {PROJECT_PATH} component = {ProjectsPage}/>
-        <Route path = {BLOG_PATH} component = {BlogPage}/>
-        <Route path = {HIRE_ME_PATH} component = {HireMePage}/>
+        <Route path = {PROJECT_PAGE.path} component = {ProjectsPage}/>
+        <Route path = {BLOG_PAGE.path} component = {BlogPage}/>
+        <Route path = {CONTACT_PAGE.path} component = {ContactPage}/>
 
 
 
@@ -51,4 +72,5 @@ class App extends Component {
   }
 }
 
-export default App;
+//Makes sure it has router props.
+export default withRouter(App);
