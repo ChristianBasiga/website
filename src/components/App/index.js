@@ -11,8 +11,10 @@ const Body = styled.div`
 
 `;
 
+
 export{
-    Header
+    Header,
+    
 };
 
 export default Body;
