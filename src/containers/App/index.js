@@ -1,76 +1,94 @@
 import React, { Component } from 'react';
 import {Route, Switch} from 'react-router-dom';
 import Helmet from 'react-helmet';
-import { PROJECT_PAGE, BLOG_PAGE, CONTACT_PAGE} from './constants';
+import {PROJECT_PAGE, BLOG_PAGE, CONTACT_PAGE, ABOUT_PAGE} from './constants';
 
-import  Body, {Header} from '../../components/App';
-import NavBar, {NavItem, NavLink} from '../../components/App/navbar';
+import linkedInLogo from  '../../images/linkedin-logo.png';
+import githubLogo from '../../images/github-logo.png';
+import emailLogo from '../../images/email-logo.png';
+import Header from '../../components/App/header';
+import  Body from '../../components/App';
+import Footer from '../../components/App/footer';
 import './App.css';
 import HomePage from '../HomePage';
 import ProjectsPage from '../Projects';
 import BlogPage from '../Blog';
 import ContactPage from '../Contact';
-import { withRouter } from "react-router";
-
+import PageNotFound from '../PageNotFound';
+import styled from 'styled-components';
 
 //The local state of App will contain meta information about projects.
 //ie: Title, description, and thumbnail, as well as uid of full project information.
 
+const AppWrapper = styled.div`
+
+background-color:gray;  
+`;
 
 class App extends Component {
 
 
+  constructor(props) {
+
+    super(props);
+    //Should I also pull contact links? Not really worth.
+
+
+    this.contactLinks =  [
+
+      {url: "https://www.linkedin.com/in/prince-christian-basiga-733527135/", title:"LinkedIn", image:linkedInLogo},
+      {url: "https://github.com/ChristianBasiga", title:"Github", image: githubLogo},
+      {url: "mailto: princebasiga@gmail.com", title:"Email", image: emailLogo}
+  
+  ];
+  }
 
   render() {
 
-    const props = this.props;
-    console.log(props);
     return (
-      <div className="App">
+      <AppWrapper className="App">
         
         <Helmet>
           <title> Chrisbtreats</title>
 
         </Helmet>
         
-        <Header>
-        <NavBar>
 
-
-
-
-          <NavItem> <NavLink to={PROJECT_PAGE.path} location = {props.location}> {PROJECT_PAGE.name} </NavLink></NavItem>
-          <NavItem> <NavLink to={BLOG_PAGE.path}  location = {props.location}> {BLOG_PAGE.name} </NavLink></NavItem>
-          <NavItem> <NavLink to={CONTACT_PAGE.path}  location = {props.location}> {CONTACT_PAGE.name}</NavLink></NavItem>
-          </NavBar>
-
-        </Header>
+        <Header/>
       
         <Body>
-        <Switch>
 
 
+    {/*Using switch glitches it out for some reason*/}
         {/*Render because want to be specific in rendering it*/}
-        <Route exact path = "/" render = {(props) => {
+        <Switch>
+        <Route  exact path = "/" render = {(props) => {
 
             //Todo: Pass in the state's list of project as props
+            console.log("I get called right?");
             return <HomePage/>
 
         }}/>
 
-        <Route path = {PROJECT_PAGE.path} component = {ProjectsPage}/>
+        <Route path = {PROJECT_PAGE} component = {ProjectsPage}/>
         <Route path = {BLOG_PAGE.path} component = {BlogPage}/>
-        <Route path = {CONTACT_PAGE.path} component = {ContactPage}/>
+        <Route path = {CONTACT_PAGE.path} render =  { props => {
+          
+            console.log("clicked contact");
+            return <ContactPage {...props} contactLinks = {this.contactLinks}/>
+          
+        }}/>
 
-
+        <Route component = {PageNotFound}/>
 
         </Switch>
-
         </Body>
-      </div>
+
+        <Footer links = {this.contactLinks}/>
+      </AppWrapper>
     );
   }
 }
 
 //Makes sure it has router props.
-export default withRouter(App);
+export default (App);

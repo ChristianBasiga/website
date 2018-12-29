@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 import React from 'react';
+import { renderers } from 'react-markdown';
 
 
 const Wrapper = styled.div`
 
-    border:2px solid black;
+    border-top:2px solid black;
     flex-direction:row;
     justify-content: space-between;
-
+    
     display:flex;
 `;
 
@@ -36,33 +37,43 @@ const ContactLink = styled.a`
     text-align:center;
 `;
 
-const Footer = (props) => {
+
+class Footer extends React.Component{
 
 
-    console.log("props", props);
+    shouldComponentUpdate(nextProps){
+        if (nextProps.links != this.props.links){
+            return true;
+        }
+        return false;
+    }
+    render(){
+
+    const props = this.props;
 
     return ( <Wrapper>
 
-        <CopyrightNotice> Copyright</CopyrightNotice>
-        <ContactLinks>
+                <CopyrightNotice> Copyright</CopyrightNotice>
+                <ContactLinks>
 
-            { props.links && props.links.map ( link => {
+                    { props.links && props.links.map ( link => {
 
-                console.log("link looking at ", link);
-                return <ContactLink key = {link.url}  href ={link.url}> 
-                {/*In future resize these images myself to be appropriate size and position, for most part everything is correct*/}
-                <img src= {link.image} alt={link.title} style={{height:"25px", marginTop:"50%"}}/>
-                </ContactLink>
-            })}
-
-
-        </ContactLinks>
+                        console.log("link looking at ", link);
+                        return <ContactLink key = {link.url}  href ={link.url}> 
+                        {/*In future resize these images myself to be appropriate size and position, for most part everything is correct*/}
+                        <img src= {link.image} alt={link.title} style={{height:"25px", marginTop:"50%"}}/>
+                        </ContactLink>
+                    })}
 
 
-    </Wrapper>
+                </ContactLinks>
 
-    )
 
+            </Wrapper>
+
+            )
+
+        }
 }
 
 export default Footer;
