@@ -16,8 +16,8 @@ export const ProjectCardContainer = styled.ul`
     flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
 
-    justify-content: space-between;
-    align-items: space-between;
+    justify-content: flex-start;
+    align-items: space-evenly;
     list-style: none;
 
     

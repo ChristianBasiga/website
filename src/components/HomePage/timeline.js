@@ -18,7 +18,9 @@ const TimeStamp = styled.div`
 
     background-color:red;
     height:10px;
+    width:10px;
     margin-top:20px;
+    border-radius:25px;
 `;
 
 const TimeLine = (props) => {
