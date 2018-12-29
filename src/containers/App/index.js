@@ -11,11 +11,12 @@ import  Body from '../../components/App';
 import Footer from '../../components/App/footer';
 import './App.css';
 import HomePage from '../HomePage';
-import ProjectsPage from '../Projects';
+import ProjectsPage from '../Project';
 import BlogPage from '../Blog';
 import ContactPage from '../Contact';
 import PageNotFound from '../PageNotFound';
 import styled from 'styled-components';
+import AboutPage from '../../containers/About';
 
 //The local state of App will contain meta information about projects.
 //ie: Title, description, and thumbnail, as well as uid of full project information.
@@ -65,11 +66,11 @@ class App extends Component {
         <Route  exact path = "/" render = {(props) => {
 
             //Todo: Pass in the state's list of project as props
-            console.log("I get called right?");
             return <HomePage/>
 
         }}/>
 
+        <Route path = {ABOUT_PAGE.path} component = {AboutPage}/>
         <Route path = {PROJECT_PAGE} component = {ProjectsPage}/>
         <Route path = {BLOG_PAGE.path} component = {BlogPage}/>
         <Route path = {CONTACT_PAGE.path} render =  { props => {
