@@ -26,6 +26,7 @@ export const Tag = styled.li`
     margin-right:10px;
     margin-bottom:5px;
     flex-shrink:2;
+    font-size:10px;
     
 `;
 
@@ -51,7 +52,7 @@ const Tags = (props) => {
                 
             }
 
-            return <Tag color = {color}> <p style={{display:"inline", fontSize:"1em", textAlign:"center"}}>{tag.title} </p></Tag>;
+            return <Tag key = {tag.title} color = {color}> <p style={{display:"inline", fontSize:"1em", textAlign:"center"}}>{tag.title} </p></Tag>;
 
         })}
 
