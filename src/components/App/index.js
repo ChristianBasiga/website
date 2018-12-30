@@ -7,8 +7,7 @@ const AppWrapper = styled.div`
   background-color:gray;  
  
     display:flex;
-  border:2px solid black;
-  min-height:100vh;
+    min-height:100vh;
 
 `;
 

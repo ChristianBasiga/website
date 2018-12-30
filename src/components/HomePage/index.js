@@ -11,7 +11,8 @@ const HomePageWrapper = styled.div`
 
 export const ProjectCardContainer = styled.ul`
 
-    display:flex;   
+    display:flex;  
+     
     flex-direction: row;
     flex-wrap: wrap;
     -webkit-flex-wrap: wrap;

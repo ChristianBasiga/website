@@ -8,7 +8,8 @@ const TagsWrapper = styled.ul`
     list-style:none;
     justify-content:flex-start;
     flex-wrap: wrap;
-    width:100%;
+    width:60%;
+    margin:auto;
 `;
 
 //I want to limit flex per column better.

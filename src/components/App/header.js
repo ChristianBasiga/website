@@ -13,8 +13,11 @@ const HeaderWrapper = styled.div`
     overflow:hidden;
     top: 0; 
     flex-grow:1;
-    //Want this to only trigger when sticky is triggered.
   //  border-bottom:1px solid black;
+
+    
+  //Want this to only trigger when sticky is triggered.
+    background-color:rgb(87, 86, 86);
 
 `;
 

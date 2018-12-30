@@ -10,7 +10,6 @@ const Wrapper = styled.div`
     width:60%;
     margin:auto;
     margin-top: 5%;
-    //Wait this is wrong.
     grid-template-columns: 50% 50%;
     grid-template-rows: 25% 50%;
     grid-template-areas:

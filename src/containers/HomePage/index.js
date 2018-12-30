@@ -28,16 +28,6 @@ const StyledCarousel = styled(Carousel)`
 
 
 
-const ProjectsGrid = styled.ul`
-
-    border:2px solid black;
-    display:grid;
-
-    grid-template-columns: 300px 300px 300px;
-    grid-template-rows: auto;
-    list-decoration:none;
-
-`;
 
 //This will take as props from state of App, the loaded in list of meta data of all projects.
 //Because while they are within app, unlikely that changes so don't want to pull
@@ -57,14 +47,15 @@ class HomePage extends Component{
 
         //Might have to use child selectors.
         //So ha to be \n
+        const contributions = [{title: "state machine", description: "I did ittt"}, {title:"back end", description: "fd"}];
         const testTags = [{title:"C#", type:"Language"}, {title: "Unity", type:"Tech"}, {title: "Unity", type:"Tech"},{title: "Unity", type:"Tech"},{title: "Unity", type:"Tech"},{title: "Unity", type:"Tech"}];
        return (<HomePageWrapper>
             
 
             <TimeLine year={2018}></TimeLine>
             <ProjectCardContainer>
-            <ProjectCard title = "title" description = "description yo of about this size. Next line." tags = {testTags} style = {{width:"20%", textAlign:"center"}}
-            thumbNail = {"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"} />
+            <ProjectCard title = "title" description = "description yo of about this size. Next line." tags = {testTags} style = {{width:"30%", textAlign:"center"}}
+            thumbNail = {"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"} contributions = {contributions} />
            
             
            <ProjectCard title = "title" description = "description yo of about this size. Next line." tags = {testTags} style = {{width:"20%", textAlign:"center"}}
@@ -73,10 +64,6 @@ class HomePage extends Component{
 <ProjectCard title = "title" description = "description yo of about this size. Next line." tags = {testTags} style = {{width:"20%", textAlign:"center"}}
             thumbNail = {"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"} />
 
-<ProjectCard title = "title" description = "description yo of about this size. Next line." tags = {testTags} style = {{width:"20%", textAlign:"center"}}
-            thumbNail = {"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"} />
-<ProjectCard title = "title" description = "description yo of about this size. Next line." tags = {testTags} style = {{width:"20%", textAlign:"center"}}
-            thumbNail = {"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"} />
 
             
 </ProjectCardContainer>

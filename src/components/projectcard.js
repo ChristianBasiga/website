@@ -7,21 +7,22 @@ import Tags from './tags';
 const CardWrapper = styled.li`
 
     margin-left:5%;
-   
-
+    margin-top:1%;
     border: 1px solid black;
     overflow:hidden;
- 
+    width:40%;
+
 `;
 
 const ThumbNail = styled.div`
 
-    width:100%;
+    width:80%;
+    margin:auto;
+    border-bottom: 1px solid white;
     background-image: url(${props => props.thumbNail});
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    //That's problem, width and height need to be set exactly for overlay to work.
     height:200px;
     display:flex;
     flex-direction:column;
@@ -33,11 +34,7 @@ const ThumbNail = styled.div`
 //Only as big as text that covers it.
 const Title = styled.p`
 
-    //color:white;
-    //background-color: red;
-
-    //opacity: 0.5;
-    text-align: ${props => props.flipped? "left" : "center"};
+    text-align: ${props => props.flipped? "center" : "center"};
     font-weight:bold;
     grid-area: Header;
     margin: ${props => props.flipped? "0" : "auto"};
@@ -58,51 +55,70 @@ const FlipButton = styled.div`
 
 const NonFlipped = styled.div`
 
-    display:flex;
-    flex-direction: column;
-    align-items:flex-end;
+    width:250px;
     height:300px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
 `;
 
 const FlippedContent = styled.div`
 
-
     height:300px;
+    width:250px;
     display:grid;
-    grid-template-columns: 85% 10%;
-    grid-template-rows: 8% 25% 5% 50% 8%;
+    flex-direction:column;
+    grid-template-columns: 100%;
+    grid-template-rows: 15% 4% 20% 2% 35%;
     grid-template-areas: 
-    "Header Button"
-    "Description Description"
-    ". ."
-    "Contributions Contributions"
-    ". .";
+    "Flip"
+    "Header"
+    "Description"
+    "contribution-header"
+    "Contributions";
 
+`;
+
+const FlippedHeader = styled.div`
+
+    display:flex;
+    grid-area:Flip;
+    justify-content: flex-end;
 `;
 
 const Description  = styled.p`
 
-    border: 2px solid black;
-    text-align:center;
     grid-area: Description;
     font-size:10px;
 `;
 
+const ContributionsHeader = styled.p`
+
+    grid-area:contribution-header;
+    text-decoration:underline;
+    font-weight:bold;
+
+
+`;
 const Contributions = styled.ul`
 
-border: 2px solid black;
 
     list-style:none;
+    display:flex;
+    width:100%;
     grid-area: Contributions;
     flex-direction:column;
-    text-align:left;
+    margin:auto;
     justify-content: space-evenly;
-    align-items: space-evenly;
+    align-items: flex-start;
 `;
 
 const Contribution = styled.li`
 
-    font-size:10px;
+    font-size:12px;
+    width:100%;
+    text-align:left;
+    margin:auto;
 `;
 
 const LinksToProject = styled.div`
@@ -145,19 +161,23 @@ class ProjectCard extends Component{
 
 
     //Add grid here.
-    return (<CardWrapper style={this.props.style}>
+    return (<CardWrapper>
 
 
         {this.state.cardFlipped? <FlippedContent>
 
             {/*would change the flip to x instead when flipped or reverse swirly*/}
+            <FlippedHeader><FlipButton  onClick = {this.flipButton} image = ""> Flip </FlipButton>
+            </FlippedHeader>
             <Title flipped = {true}> {title} </Title>
-            <FlipButton  onClick = {this.flipButton} image = ""/>
+            
 
             <Description> {description}</Description>
 
+
+            <ContributionsHeader>Contributions</ContributionsHeader>
             <Contributions>
-                <strong style={{textAlign:"left", textDecoration:"underline"}}> Contributions</strong>
+
                 {contributions && contributions.map( contribution => {
 
 
@@ -178,7 +198,7 @@ class ProjectCard extends Component{
             <Title flipped={false}> {title} </Title>    
 
             <Tags tags={tags}/>
-            <FlipButton  onClick = {this.flipButton} image = " "/>
+            <FlipButton  onClick = {this.flipButton} image = " "> Flip </FlipButton>
 
        </NonFlipped>
         }
