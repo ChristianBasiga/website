@@ -16,7 +16,7 @@ const TimeLineWrapper = styled.div`
 
 const TimeStamp = styled.div`
 
-    background-color:red;
+    background-color:#fff703;
     height:10px;
     width:10px;
     margin-top:20px;

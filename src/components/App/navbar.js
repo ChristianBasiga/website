@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 import {Link } from 'react-router-dom';
+
 const NavBar = styled.ul`
 
     list-style-type:none;
     text-align:right;
-    border-bottom: 2px solid black;
     display:flex;
-
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -32,11 +31,11 @@ const NavItem = styled.li`
 
 const NavLink = styled(Link)`
 
-    text-decoration: ${props => props.location.pathname == props.to? 'underline' : 'none'};
-    color:black;
-   
+    border-bottom: ${props => props.location.pathname == props.to? '1px solid #fff703' : '0'};
+    color:white;
+    text-decoration:none;
     &:hover{
-        text-decoration:underline;
+        border-bottom: 1px solid #fff703;
     };
 
    

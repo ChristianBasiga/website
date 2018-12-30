@@ -1,15 +1,27 @@
 import styled from 'styled-components';
 
 
-const Body = styled.div`
+
+const AppWrapper = styled.div`
+
+  background-color:gray;  
+ 
+    display:flex;
+  border:2px solid black;
+  min-height:100vh;
+
+`;
+
+export const Body = styled.div`
 
 
+    grid-area: body;  
 
-    width:80%;
-    margin:auto;
+
+    flex-grow:2;
 `;
 
 
 
 
-export default Body;
+export default AppWrapper;

@@ -3,6 +3,8 @@ import {Carousel} from 'react-responsive-carousel';
 
 const ProjectsPageWrapper = styled.div`
 
+    width:100%;
+    margin:auto;
 
 `;
 

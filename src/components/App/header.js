@@ -7,6 +7,14 @@ import NavBar, {NavItem, NavLink} from '../../components/App/navbar';
 
 const HeaderWrapper = styled.div`
 
+    grid-area:header;
+    position: -webkit-sticky;
+    position:sticky;
+    overflow:hidden;
+    top: 0; 
+    flex-grow:1;
+    //Want this to only trigger when sticky is triggered.
+  //  border-bottom:1px solid black;
 
 `;
 

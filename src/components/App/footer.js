@@ -5,11 +5,16 @@ import { renderers } from 'react-markdown';
 
 const Wrapper = styled.div`
 
-    border-top:2px solid black;
     flex-direction:row;
     justify-content: space-between;
-    
     display:flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    grid-area:footer;
+    background-color:rgb(87, 86, 86);
 `;
 
 
@@ -18,6 +23,7 @@ const Wrapper = styled.div`
 const CopyrightNotice = styled.p`
 
     margin-left:5%;
+    color:white;
 `;
 //Flex as images and texy may vary in size.
 const ContactLinks = styled.div`
