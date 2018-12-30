@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 
-
+import buttonImage from '../../images/down-arrow.png';
 const Wrapper = styled.div`
 
     display:grid;
-
-    grid-template-columns: auto 10%;
+    width:65%;
+    margin-left:25%;
+    margin-bottom:1%;
+    
+    grid-template-columns: 80%;
     grid-template-rows: 10% 90%;
     grid-template-areas:
     "bullet"
@@ -15,25 +18,47 @@ const Wrapper = styled.div`
 
 
 
+//Change this to contain whole image, I'll make in gimp, then swap images.  
 const ContributionBullet = styled.div`
     
     grid-area: bullet;
-    display:flex;
+    display:grid;
+    grid-template-columns: 95% 5%;
+    grid-template-rows: auto;
+    grid-template-areas:
+    "title button";
+    border: 2px solid black;
+    height:30px;
+    background-color:#082ed0;
+    color:white;
+    margin-left: 5%;
+    cursor: pointer;
 
+    &: hover{
+
+        //Do acual color later.
+        opacity:0.5;
+    }
 `;
 
-const ContributionTitle = styled.p`
+const ContributionTitle = styled.div`
+    grid-area: title;
+    text-align:left;
 
-    flex-grow:2;
+
+
 `;
 
 const DropdownButton = styled.div`
 
+    grid-area: button;
+    height:20px;
     background-image: url(${props => props.image});
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    cursor: pointer;
+    grid-area:button;
+    margin-top:1%;
 `;
 
 const ContributionContent = styled.div`
@@ -41,11 +66,17 @@ const ContributionContent = styled.div`
     grid-area: content;
     display: flex;
     flex-direction:column;
-
+    align-items: space-between;
 `;
+
+
 
 const Description = styled.p`
 
+    text-align:left;
+    width:80%;
+    margin:auto;
+    margin-top:1%;
 `;
 
 const Snapshots = styled.div`
@@ -61,8 +92,9 @@ const Snapshot = styled.img`
 
     flex-shrink: 2;
     align-self:space-evenly;
-    margin-top:1%;
-    margin-left:5%;
+    width:30%;
+    margin-left: 1%;
+    margin-bottom:2%;
 
 `;
 
@@ -93,16 +125,16 @@ class Contribution extends Component{
     render(){
         return <Wrapper>
 
-            <ContributionBullet>
+           
+            <ContributionBullet  onClick = {this.onDropdownClicked} >
                 <ContributionTitle> {this.props.title} </ContributionTitle>
-                <DropdownButton onClick = {this.onDropdownClicked}>Dropdown</DropdownButton>
-
+                <DropdownButton image = {buttonImage}/>
             </ContributionBullet>
-
 
             {this.state.dropdownOpen && <ContributionContent>
 
-
+              
+                {/*Description maybe markdown */}
                 <Description> {this.props.description} </Description>
                 <Snapshots>
 

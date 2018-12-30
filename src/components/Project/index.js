@@ -5,6 +5,7 @@ const ProjectsPageWrapper = styled.div`
 
     width:100%;
     margin:auto;
+    margin-bottom:5%;
 
 `;
 

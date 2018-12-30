@@ -19,11 +19,11 @@ const Wrapper = styled.div`
 `;
 
 
-const Title = styled.p`
-
+const Title = styled.div`
 
     grid-area: title;
     font-size:50px;
+    border: 2px solid black;
 `;
 
 //This is one for generic.
@@ -45,18 +45,16 @@ const DetailBullets = styled.ul`
     list-style:none;   
     display:grid;
     grid-template-columns: auto;
-    grid-template-rows: 12.5% 12.5% 12.5% 12.5% 12.5%;
+    grid-template-rows: 12.5% 12.5% 12.5% 12.5%;
 `;
 
 const DetailTitle = styled.p`
 
-    grid-area: title;
     font-weight: bold;
 `;
 
 const DetailValue = styled.p`
 
-    grid-area: value;
 
 `;
 

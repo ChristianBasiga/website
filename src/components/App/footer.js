@@ -5,6 +5,8 @@ import { renderers } from 'react-markdown';
 
 const Wrapper = styled.div`
 
+    position: -webkit-sticky;
+    position:sticky;
     flex-direction:row;
     justify-content: space-between;
     display:flex;

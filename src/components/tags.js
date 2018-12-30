@@ -17,7 +17,6 @@ export const Tag = styled.li`
 
 
     text-align:center;
-    //Then color will depend on stype of tag, will change colors later.
     background-color: ${props => props.color};
     border-style:double;
     border-color: ${props => props.color};
