@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {Label, Input} from './index';
-
+import {Label, Field} from './index';
+import firebase from 'firebase';
 import styled from 'styled-components';
 
 
 
-//Move these into components folder later.
+//Move these into components folder later after update layout.
 const Wrapper = styled.div`
 
 
@@ -18,12 +18,12 @@ const FieldsHeader = styled.p`
 
 const SubmitButton = styled.button`
 
-
+display:block;
 
 `;
 //Essentially a form that handles uploading project cards into database.
 //This will make testing new layouts easy and adding new content easy as well.
-class ProjectCardCreation{
+class ProjectCardCreation extends Component{
 
 
 
@@ -40,14 +40,15 @@ class ProjectCardCreation{
             //How am I going to make the screen shot shit for this?? Lmao, okay, this takes care of tedious part
             //uploading screenshots not too tedious but maybe add as feature later.
             contribution:"",
-            contributions,
+            contributions: [],
             //Links will have type, like github and I'll store that locally, not in storage.
             linkImage:null,
             linkUrl:"",
-            links,
+            links :[],
             tagTitle:"",
             tagType:"",
-            tags,
+            tags:[],
+            result:"",
 
             thumbnail:null,
 
@@ -65,7 +66,7 @@ class ProjectCardCreation{
     onFieldUpdate(evt){
 
         const target = evt.target;
-        this.state({
+        this.setState({
             [target.id] : target.value
         });
     }
@@ -88,7 +89,7 @@ class ProjectCardCreation{
     addTag(){
 
         const {tagTitle, tagType} = this.state;
-        const tag = {title:tagTitle, type:type};
+        const tag = {title:tagTitle, type:tagType};
         //It is in state, but not necessarry to update.. hmm.
         this.setState( state => {
             const tags = state.tags.concat(tag);
@@ -157,6 +158,9 @@ class ProjectCardCreation{
         .then( value => {
 
             console.log("project card made",value);
+            this.setState({
+                result :"Added project card, you can check homepage"
+            });
 
         })
         .catch( err => {
@@ -174,41 +178,41 @@ class ProjectCardCreation{
 
                 <div>
                 <Label> Title </Label>
-                <Input id="title" onChange = {this.onFieldUpdate}/>
+                <Field id="title" onChange = {this.onFieldUpdate}/>
                 </div>
 
                 <div>
                 <Label> Description </Label>
-                <Input id="description" onChange = {this.onFieldUpdate}/>
+                <Field id="description" onChange = {this.onFieldUpdate}/>
                 </div>
 
                 <div>
                 <Label> Thumbnail</Label>
-                <Input id="thumbnail" type="file" onChange = {this.onFieldUpdate}/>
+                <Field id="thumbnail" type="file" onChange = {this.onFieldUpdate}/>
                 </div>
 
                 <div>
                 <Label> Contribution </Label>
-                <Input id="contribution" onChange = {this.onFieldUpdate}/>
+                <Field id="contribution" onChange = {this.onFieldUpdate}/>
                 <SubmitButton onClick = {this.addContribution}> Add Contribution</SubmitButton>
                 </div>
 
                 <div>
                 <FieldsHeader>Tag</FieldsHeader>
                 <Label> Title </Label>
-                <Input id="tagTitle" onChange = {this.onFieldUpdate}/>
+                <Field id="tagTitle" onChange = {this.onFieldUpdate}/>
                 <Label> Type </Label>
                 {/*Change to drop down later*/}
-                <Input id="tagType" onChange = {this.onFieldUpdate}/>
+                <Field id="tagType" onChange = {this.onFieldUpdate}/>
                 <SubmitButton onClick = {this.addTag} >Add Tag</SubmitButton>
                 </div>
 
                 <div>
                 <FieldsHeader>Link</FieldsHeader>
                 <Label> url </Label>
-                <Input id="linkUrl" onChange = {this.onFieldUpdate}/>
+                <Field id="linkUrl" onChange = {this.onFieldUpdate}/>
                 <Label> Title </Label>
-                <Input type = "file" id="linkImage" onChange = {this.onFieldUpdate}/>
+                <Field type = "file" id="linkImage" onChange = {this.onFieldUpdate}/>
                 <SubmitButton onClick = {this.addLink}> Add Link</SubmitButton>
                 </div>
 
@@ -216,6 +220,7 @@ class ProjectCardCreation{
 
 
                 <SubmitButton onClick = {this.addProjectCard}> Add Project Card</SubmitButton>
+                <p>{this.state.result}</p>
 
             </Wrapper>
 
