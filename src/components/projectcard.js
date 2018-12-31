@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
+import { withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 import Tags from './tags';
-
 //This is cards on homepage previewing projects.
 //Card Wrappers are flex items.
 const CardWrapper = styled.li`
@@ -10,32 +10,61 @@ const CardWrapper = styled.li`
     margin-top:1%;
     border: 1px solid black;
     overflow:hidden;
-    width:40%;
+    width:300px;
 
+    height:300px;
+
+
+`;
+
+const NonFlipped = styled.div`
+
+    width:95%;
+    display:grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 200px 1fr 1fr 1fr;
+    grid-template-areas:
+    "thumbnail"
+    "Header"
+    "tags"
+    "Button";
+    
+   
 `;
 
 const ThumbNail = styled.div`
 
     width:80%;
+
+    height:100%;
     margin:auto;
     border-bottom: 1px solid white;
-    background-image: url(${props => props.thumbNail});
+    background-image: url(${props => props.thumbnail});
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    height:200px;
     display:flex;
     flex-direction:column;
     justify-content:flex-end;
+    cursor:pointer;
+
+    &:hover{
+
+        padding-right:10%;
+        padding-left:10%;
+    }
 `;
 
 
 //Since this is overlaying, I want it to be on bottom of image.
 //Only as big as text that covers it.
+//Change to grid cause fuckkkk.
 const Title = styled.p`
 
     text-align: ${props => props.flipped? "center" : "center"};
     font-weight:bold;
+  //  flex-grow: 2;
+    font-size:20px;
     grid-area: Header;
     margin: ${props => props.flipped? "0" : "auto"};
 `;
@@ -47,35 +76,30 @@ const FlipButton = styled.div`
 
     cursor:pointer;
     grid-area: Button;
-    align-self:right;
+    justify-self:end;
     background-image: url(${props => props.image});
 `;
 
 
 
-const NonFlipped = styled.div`
 
-    width:250px;
-    height:300px;
-    display:flex;
-    flex-direction:column;
-    align-items:flex-end;
-`;
 
 const FlippedContent = styled.div`
 
-    height:300px;
-    width:250px;
-    display:grid;
-    flex-direction:column;
+    width:95%;
+
+//Fuck dude grid not even needed lol.
+  //  display:grid;
     grid-template-columns: 100%;
-    grid-template-rows: 15% 4% 20% 2% 35%;
+   // grid-template-rows: 15px 15px 1fr 15px auto auto;
+    grid-template-rows: 20px 20px 50px 10px 2fr 1fr;
     grid-template-areas: 
     "Flip"
     "Header"
     "Description"
     "contribution-header"
-    "Contributions";
+    "Contributions"
+    "Footer";
 
 `;
 
@@ -92,20 +116,22 @@ const Description  = styled.p`
     font-size:10px;
 `;
 
-const ContributionsHeader = styled.p`
+const ContributionsHeader = styled.div`
 
+    //why overflowing?
     grid-area:contribution-header;
+    border:2px solid black;
     text-decoration:underline;
-    font-weight:bold;
-
-
+    align-self:start;
+    justify-self:start;
+    height:100%;
 `;
 const Contributions = styled.ul`
 
-
+    border:2px solid black;
     list-style:none;
     display:flex;
-    width:100%;
+    width:80%;
     grid-area: Contributions;
     flex-direction:column;
     margin:auto;
@@ -124,17 +150,43 @@ const Contribution = styled.li`
 const LinksToProject = styled.div`
 
     grid-area:Footer;
+    margin-top:40%;
+    display:flex;
+    //width:90%;
+    justify-content: space-between;
+
 `;
 
-const LinkToMore = styled.button`
+const LinkToMore = styled.div`
 
     grid-area:Button;
+    text-decoration:none;
+    color:white;
+    text-align:right;
+    background-image: url(${props => props.image});
+    background-position: center;
+    background-size: contain;
+    cursor:pointer;
 
+
+`;
+
+const ImageLinks = styled.div`
+`;
+const ImageLink = styled.a`
+    background-image: url(${props => props.image});
+    background-position: center;
+    background-size: contain;
+    width:50px;
+    height:50px;
+    text-align:left;
+    margin-left:10px;
 `;
 //This will be a horizontal flex container itself.
 //Maybe it's own thing.
 
 
+//This might ned to be container instead of component since is affecting state now.
 class ProjectCard extends Component{
 
 
@@ -148,6 +200,7 @@ class ProjectCard extends Component{
         };
 
         this.flipButton = this.flipButton.bind(this);
+        this.onProjectClicked = this.onProjectClicked.bind(this);
     }
 
     flipButton()  {
@@ -155,11 +208,17 @@ class ProjectCard extends Component{
         this.setState({cardFlipped : !this.state.cardFlipped});
     }
 
+    onProjectClicked(){
+
+        this.props.history.push("/projects/"+this.props.projectUid);
+
+    }
+
     render(){
 
-    const {title, tags, thumbNail, links, description, contributions} = this.props;
+    const {title, tags, thumbnail, links, description, contributions, projectId} = this.props;
 
-
+    console.log("card props", this.props);
     //Add grid here.
     return (<CardWrapper>
 
@@ -181,23 +240,38 @@ class ProjectCard extends Component{
                 {contributions && contributions.map( contribution => {
 
 
+                    //Just title prob fine, tbh. That's point of full contribution drop down.
                     return <Contribution key ={ contribution.title }>  <strong> {contribution.title}: </strong> 
                     {contribution.description} </Contribution>
                 })}
 
             </Contributions>
 
+            <LinksToProject>
+
+
+                <ImageLinks>
+                { links && links.map (link => {
+
+                    console.log("link",link);
+                    return <ImageLink key = {link.url} href = {link.url}><img src={link.image} style={{width:"25px", height:"25px"}}/></ImageLink>
+                })}
+                </ImageLinks>
+                <LinkToMore onClick = {this.onProjectClicked}> More</LinkToMore>
+            
+            </LinksToProject>
+
 
         </FlippedContent> :
         
         <NonFlipped>
 
-            {thumbNail && <ThumbNail thumbNail={thumbNail}>
+            {thumbnail && <ThumbNail thumbnail={thumbnail} onClick = {this.onProjectClicked}>
             
             </ThumbNail>}
             <Title flipped={false}> {title} </Title>    
 
-            <Tags tags={tags}/>
+            <Tags tags={tags} style={{gridName:"tags"}}/>
             <FlipButton  onClick = {this.flipButton} image = " "> Flip </FlipButton>
 
        </NonFlipped>
@@ -210,4 +284,4 @@ class ProjectCard extends Component{
     )
     }
 }
-export default ProjectCard;
+export default withRouter(ProjectCard);

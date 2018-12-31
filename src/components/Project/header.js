@@ -23,7 +23,6 @@ const Title = styled.div`
 
     grid-area: title;
     font-size:50px;
-    border: 2px solid black;
 `;
 
 //This is one for generic.
@@ -83,9 +82,9 @@ const Header = props => {
         <Title> {props.title} </Title>
         <DetailBullets>
 
-            {props.metaData.map( metaData => {
+            { props.metadata && props.metadata.map( metadata => {
 
-                return <DetailBullet key ={metaData.key} > <DetailTitle>{metaData.key}</DetailTitle>  <DetailValue>{metaData.value}</DetailValue></DetailBullet>
+                return <DetailBullet key ={metadata.key} > <DetailTitle>{metadata.key}</DetailTitle>  <DetailValue>{metadata.value}</DetailValue></DetailBullet>
             })}
 
         </DetailBullets>

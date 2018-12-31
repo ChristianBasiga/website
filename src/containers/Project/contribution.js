@@ -76,7 +76,7 @@ const Description = styled.p`
     text-align:left;
     width:80%;
     margin:auto;
-    margin-top:1%;
+    margin-top:5%;
 `;
 
 const Snapshots = styled.div`
@@ -123,6 +123,8 @@ class Contribution extends Component{
     }
 
     render(){
+
+        console.log("contribution props", this.props);
         return <Wrapper>
 
            
