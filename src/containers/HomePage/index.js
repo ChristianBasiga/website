@@ -1,12 +1,10 @@
 import React, {Component } from 'react';
-
-
+import ReactMarkdown from 'react-markdown';
+import styled from 'styled-components';
+import firebase from 'firebase';
 import HomePageWrapper, {ProjectCardContainer}  from '../../components/HomePage';
 import TimeLine from '../../components/HomePage/timeline';
 import ProjectCard from '../../components/projectcard';
-import ReactMarkdown from 'react-markdown';
-import styled from 'styled-components';
-
 
 
 import {Carousel} from 'react-responsive-carousel';
@@ -38,7 +36,48 @@ class HomePage extends Component{
     constructor(props){
 
         super(props);   
+
+        this.state = {
+
+            projectCards: null,
+        };
         
+    }
+
+    componentDidMount(){
+        this.loadProjectCards();
+    }
+
+    loadProjectCards(){
+
+        const firestore = firebase.firestore();
+
+
+        const collRef = firestore.collection("project-cards");
+
+
+        //If keeping timeline may filter this via year.
+        //Or set keys in objects here.
+        collRef.get()
+            .then( querySnapshot => {
+
+                var pulledCards = []
+                console.log("got napshot");
+                querySnapshot.docs.forEach( doc=> {
+
+                    console.log("doc ", doc.data());
+                    pulledCards.push(doc.data());
+                });
+
+                this.setState({
+                    projectCards : pulledCards
+                });
+            })
+            .catch ( err => {
+
+                console.log(err);
+            })
+
     }
 
 
@@ -47,36 +86,32 @@ class HomePage extends Component{
 
         //Might have to use child selectors.
         //So ha to be \n
+
+        if (this.state.projectCards == null) return null;
         const contributions = [{title: "state machine", description: "I did ittt"}, {title:"back end", description: "fd"}];
-        const testTags = [{title:"C#", type:"Language"}, {title: "Unity", type:"Tech"}, {title: "Unity", type:"Tech"},{title: "Unity", type:"Tech"},{title: "Unity", type:"Tech"},{title: "Unity", type:"Tech"}];
+        const testTags = [{title:"C#", type:"Language"},];
        return (<HomePageWrapper>
             
 
             <TimeLine year={2018}></TimeLine>
-            <ProjectCardContainer>
-            <ProjectCard title = "title" description = "description yo of about this size. Next line." tags = {testTags} style = {{width:"30%", textAlign:"center"}}
-            thumbNail = {"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"} contributions = {contributions} />
-           
-            
-           <ProjectCard title = "title" description = "description yo of about this size. Next line." tags = {testTags} style = {{width:"20%", textAlign:"center"}}
-            thumbNail = {"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"} />
 
-<ProjectCard title = "title" description = "description yo of about this size. Next line." tags = {testTags} style = {{width:"20%", textAlign:"center"}}
-            thumbNail = {"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"} />
+            
+            <ProjectCardContainer>
+            {
+
+                this.state.projectCards.map (projectCard => {
+
+                    return <ProjectCard key = {projectCard.projectUid} {...projectCard}
+                     projectUid = {projectCard.projectUid}/>;
+                })
+            }    
+
+             
 
 
             
 </ProjectCardContainer>
-<TimeLine year={2017}></TimeLine>
-        <ProjectCardContainer>
-
-        <ProjectCard title = "title" description = "description yo of about this size. Next line." tags = {testTags} style = {{width:"20%", textAlign:"center"}}
-            thumbNail = {"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"} />
-
-<ProjectCard title = "title" description = "description yo of about this size. Next line." tags = {testTags} style = {{width:"20%", textAlign:"center"}}
-            thumbNail = {"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"} />
-        </ProjectCardContainer>
-
+           
              </HomePageWrapper>);
     }
 

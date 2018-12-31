@@ -8,8 +8,7 @@ const TagsWrapper = styled.ul`
     list-style:none;
     justify-content:flex-start;
     flex-wrap: wrap;
-    width:60%;
-    margin:auto;
+    //width:60%;
 `;
 
 //I want to limit flex per column better.
@@ -20,13 +19,10 @@ export const Tag = styled.li`
     background-color: ${props => props.color};
     border-style:double;
     border-color: ${props => props.color};
-    border-width:2px 5px 2px 5px;
     border-radius: 10px;
     color:white;
     margin-right:10px;
     margin-bottom:5px;
-    flex-shrink:2;
-    font-size:10px;
     
 `;
 
@@ -42,7 +38,7 @@ const Tags = (props) => {
                     color = "red";
                 break;
 
-                case "Tech":
+                case "Technology":
                     color = "blue";
                 break;
 
