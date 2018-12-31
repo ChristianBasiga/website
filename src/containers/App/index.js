@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Route, Switch} from 'react-router-dom';
 import Helmet from 'react-helmet';
-import {PROJECT_PAGE, BLOG_PAGE, CONTACT_PAGE, ABOUT_PAGE} from './constants';
+import {PROJECT_PAGE, BLOG_PAGE, CONTACT_PAGE, ABOUT_PAGE, ADMIN_PATH} from './constants';
 
 import linkedInLogo from  '../../images/linkedin-logo.png';
 import githubLogo from '../../images/github-logo.png';
@@ -17,6 +17,7 @@ import ContactPage from '../Contact';
 import PageNotFound from '../PageNotFound';
 import styled from 'styled-components';
 import AboutPage from '../../containers/About';
+import AdminPage from '../AdminPage';
 
 //The local state of App will contain meta information about projects.
 //ie: Title, description, and thumbnail, as well as uid of full project information.
@@ -70,6 +71,7 @@ class App extends Component {
 
         }}/>
 
+        <Route path = {ADMIN_PATH} component = {AdminPage}/>
         <Route path = {ABOUT_PAGE.path} component = {AboutPage}/>
         <Route path = {PROJECT_PAGE} component = {ProjectsPage}/>
         <Route path = {BLOG_PAGE.path} component = {BlogPage}/>

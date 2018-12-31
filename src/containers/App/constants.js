@@ -1,6 +1,7 @@
 
 
 
+export const ADMIN_PATH = "/admin";
 export const PROJECT_PAGE = "/projects/:projectId";
 export const PROJECTS_PAGE = {name: "Projects", path: "/"};
 export const BLOG_PAGE = {name: "Blog", path: "/blog"};
