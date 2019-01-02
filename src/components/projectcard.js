@@ -241,7 +241,7 @@ class ProjectCard extends Component{
 
 
                     //Just title prob fine, tbh. That's point of full contribution drop down.
-                    return <Contribution key ={ contribution.title }>  <strong> {contribution.title}: </strong> 
+                    return <Contribution key ={ contribution }>  <strong> {contribution} </strong> 
                     {contribution.description} </Contribution>
                 })}
 

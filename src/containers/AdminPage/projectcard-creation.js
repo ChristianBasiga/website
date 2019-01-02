@@ -170,7 +170,7 @@ class ProjectCardCreation extends Component{
     }
 
 
-    addProjectCard(){
+    addProjectCard = async() => {
 
         const firestore = firebase.firestore();
 
@@ -190,31 +190,42 @@ class ProjectCardCreation extends Component{
 
 
                         //Uploads project card.
-                collectionRef.doc().set({
-                    projectUid,
-                    title,
-                    description,
-                    thumbnail:bucket.downloadURL,
-                    contributions,
-                    tags,
-                    links,
-                })
-                .then( value => {
+                storage.getDownloadURL()
+                    .then( thumbnailDownload => {
+                        collectionRef.doc().set({
+                            projectUid,
+                            title,
+                            description,
+                            thumbnail:thumbnailDownload,
+                            contributions,
+                            tags,
+                            links,
+                        })
+                        .then( value => {
+        
+                            console.log("project card made",value);
+                            this.setState({
+                                result :"Added project card, you can check homepage"
+                            });
+        
+                        })
+                        .catch( err => {
+        
+                            console.log("error making project card.", err);
+                            storage.delete();
+                        });
+                        
 
-                    console.log("project card made",value);
-                    this.setState({
-                        result :"Added project card, you can check homepage"
+                    })
+                    .catch(err => {
+                        console.log(err);
                     });
-
-                })
-                .catch( err => {
-
-                    console.log("error making project card.", err);
-                    storage.delete();
-                });
                 
+                ;
+             
             })
             .catch( err => {
+                storage.delete();
 
                 console.log("error uploading thumbnail", err);
             });
