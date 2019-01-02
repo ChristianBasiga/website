@@ -78,6 +78,7 @@ class ProjectCardCreation extends Component{
             tags:[],
             projectUid:"",
             result:"",
+            
 
             thumbnail:null,
 
@@ -86,7 +87,9 @@ class ProjectCardCreation extends Component{
         this.onFieldUpdate = this.onFieldUpdate.bind(this);
         this.addContribution = this.addContribution.bind(this);
         this.addLink = this.addLink.bind(this);
+        this.onLinkImageUpdate = this.onLinkImageUpdate.bind(this);
         this.addTag = this.addTag.bind(this);
+        this.onTagTypeUpdate = this.onTagTypeUpdate.bind(this);
         this.addProjectCard = this.addProjectCard.bind(this);
 
         //TODO: Add error and empty field checking before adding any of these.
@@ -94,11 +97,29 @@ class ProjectCardCreation extends Component{
 
     onFieldUpdate(evt){
 
+        console.log("evt", evt);
+
         const target = evt.target;
         this.setState({
             [target.id] : target.value
         });
     }
+
+    onTagTypeUpdate(evt){
+
+        this.setState({
+            tagType: evt.value,
+        });
+    }
+
+    onLinkImageUpdate(evt){
+
+        this.setState({
+            linkImage : evt.value,
+        });
+    }
+
+
 
     addContribution(){
 
@@ -173,7 +194,7 @@ class ProjectCardCreation extends Component{
                     projectUid,
                     title,
                     description,
-                    thumbnail: thumbnail.name,
+                    thumbnail:bucket.downloadURL,
                     contributions,
                     tags,
                     links,
@@ -252,7 +273,7 @@ class ProjectCardCreation extends Component{
                 <div>
                 <Label for = "tagType"> Type </Label>
                 {/*Change to drop down later*/}
-                <StyledDropdown id = "tagType" options = {TagTypes} onChange = {this.onFieldUpdate} value ={this.state.tagType}/>
+                <StyledDropdown id = "tagType" options = {TagTypes} onChange = {this.onTagTypeUpdate} value ={this.state.tagType || TagTypes[0]}/>
                 </div>
                 <SubmitButton onClick = {this.addTag} >Add Tag</SubmitButton>
                 </div>
@@ -264,7 +285,7 @@ class ProjectCardCreation extends Component{
 
                 <div>
                 <Label> Image </Label>
-                <StyledDropdown id ="linkUrl" options = {ProjectLinks} onChange = {this.onFieldUpdate} value = {this.state.linkImage}/> 
+                <StyledDropdown id ="linkUrl" options = {ProjectLinks} onChange = {this.onLinkImageUpdate} value = {this.state.linkImage}/> 
                 </div>
                 
                 <SubmitButton onClick = {this.addLink}> Add Link</SubmitButton>
