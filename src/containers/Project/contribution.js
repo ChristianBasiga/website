@@ -90,9 +90,10 @@ const Snapshots = styled.div`
 
 const Snapshot = styled.img`
 
-    flex-shrink: 2;
+  //  flex-shrink: 2;
     align-self:space-evenly;
     width:30%;
+    height:30%;
     margin-left: 1%;
     margin-bottom:2%;
 

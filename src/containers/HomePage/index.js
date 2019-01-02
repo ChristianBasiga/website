@@ -7,22 +7,10 @@ import TimeLine from '../../components/HomePage/timeline';
 import ProjectCard from '../../components/projectcard';
 
 
-import {Carousel} from 'react-responsive-carousel';
-import '../../../node_modules/react-responsive-carousel/lib/styles/carousel.css';
 
 
 
-const StyledCarousel = styled(Carousel)`
 
-
-    width:30%;
-    margin-left:35%;
-    & thumb{
-
-        width:50%;
-    }
-
-`;
 
 
 
@@ -88,8 +76,7 @@ class HomePage extends Component{
         //So ha to be \n
 
         if (this.state.projectCards == null) return null;
-        const contributions = [{title: "state machine", description: "I did ittt"}, {title:"back end", description: "fd"}];
-        const testTags = [{title:"C#", type:"Language"},];
+        
        return (<HomePageWrapper>
             
 

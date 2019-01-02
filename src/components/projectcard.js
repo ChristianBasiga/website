@@ -120,15 +120,15 @@ const ContributionsHeader = styled.div`
 
     //why overflowing?
     grid-area:contribution-header;
-    border:2px solid black;
     text-decoration:underline;
+    font-weight:bold;
+    font-size: 1em;
     align-self:start;
     justify-self:start;
     height:100%;
 `;
 const Contributions = styled.ul`
 
-    border:2px solid black;
     list-style:none;
     display:flex;
     width:80%;
@@ -210,13 +210,16 @@ class ProjectCard extends Component{
 
     onProjectClicked(){
 
-        this.props.history.push("/projects/"+this.props.projectUid);
+        //I want to push with props.
+    const {title, tags, thumbnail, links, description, contributions, projectUid} = this.props;
+
+        this.props.history.push("/projects/"+projectUid, {title,thumbnail, tags, links, description});
 
     }
 
     render(){
 
-    const {title, tags, thumbnail, links, description, contributions, projectId} = this.props;
+    const {title, tags, thumbnail, links, description, contributions} = this.props;
 
     console.log("card props", this.props);
     //Add grid here.

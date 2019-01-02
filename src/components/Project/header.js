@@ -10,7 +10,7 @@ const Wrapper = styled.div`
     width:60%;
     margin:auto;
     margin-top: 5%;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 50% 30%;
     grid-template-rows: 25% 50%;
     grid-template-areas:
     "thumbnail title"
@@ -29,10 +29,11 @@ const Title = styled.div`
 const Thumbnail = styled.div`
 
     background-image: url(${props => props.image});
-    background-position: center;
-    background-size: contain;
+    background-position: right;
+    background-size: cover;
     background-repeat: no-repeat;
     overflow: hidden;
+   // border:2px solid black;
     grid-area: thumbnail;
 `;
 
@@ -76,7 +77,9 @@ const DetailBullet = styled.li`
 const Header = props => {
 
 
+    //Idk if really need thumbnail here if have screenshots.
     return ( <Wrapper>
+
 
         <Thumbnail image={props.thumbnail}/>
         <Title> {props.title} </Title>
