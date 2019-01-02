@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import firebase from 'firebase';
 import styled from 'styled-components';
+import ProjectCardCreation from './projectcard-creation';
 //This page is for my purposes, just streamlines writing into database to create a new project card
 //with corresponding project page etc.
 //This page will initially render with login page, only I have credentials for.
@@ -15,7 +16,7 @@ const Wrapper = styled.div`
 `;
 
 
-const LoginSection = styled.div`
+const LoginSection = styled.form`
 
 
 `;
@@ -29,7 +30,6 @@ export const Label = styled.label`
 
 export const Field = styled.input`
 
-    width:100px;
     border: 1px solid black;
 
 `;
@@ -127,17 +127,25 @@ class AdminPage extends Component{
                 {this.state.loggedIn? 
                     <LoggedInSection>
 
+                        <ProjectCardCreation/>
                         
 
                     </LoggedInSection>
                 :
-                    <LoginSection>
+                    <LoginSection onSubmit = { (evt) => {
+
+
+                        evt.preventDefault();
+
+                        this.onLogin();
+
+                    }}>
 
                         <Label for = "username"> Username </Label>
                         <Field id = "username" onChange = {this.updateField} value = {this.state.username}/>
                         <Label for ="password"> Password </Label>
                         <Field id = "password" type = "password" onChange = {this.updateField} value = {this.state.password}/>
-                        <LoginButton onClick = {this.onLogin}> Login</LoginButton>
+                        <LoginButton type = "submit"> Login</LoginButton>
                     </LoginSection>
             
             }
