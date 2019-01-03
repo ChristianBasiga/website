@@ -7,7 +7,6 @@ import NavBar, {NavItem, NavLink} from '../../components/App/navbar';
 
 const HeaderWrapper = styled.div`
 
-    grid-area:header;
     position: -webkit-sticky;
     position:sticky;
     overflow:hidden;

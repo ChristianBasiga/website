@@ -1,7 +1,7 @@
 import React, {Component } from 'react';
 import {withRouter} from 'react-router-dom';
 import Header from '../../components/Project/header';
-import ProjectPage  from '../../components/Project';
+import ProjectPage, {Contributions}  from '../../components/Project';
 import Carousel from '../../components/Carousel';
 import Contribution from './contribution';
 import firebase from 'firebase';
@@ -67,11 +67,13 @@ class Project extends Component{
 
             <Carousel images = {snapshotTests} style = {{margin:"auto", width:"50%"}}/>
 
+            <Contributions>
             {contributions && contributions.map ( contribution => {
 
                 const {title, description, snapshots} = contribution;
-                return <Contribution key = {title} title = {title} description = {description} snapshots = {snapshotTests}/>
+                return <Contribution key = {title} title = {title} description = {description} snapshots = {snapshots}/>
             })} 
+            </Contributions>
             
              </ProjectPage>);
     }

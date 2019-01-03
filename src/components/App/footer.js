@@ -15,7 +15,6 @@ const Wrapper = styled.div`
     display: -ms-flexbox;
     display: -moz-flex;
     display: -webkit-flex;
-    grid-area:footer;
     background-color:rgb(87, 86, 86);
 `;
 

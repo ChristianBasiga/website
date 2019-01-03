@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import { withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 import Tags from './tags';
+const FlipFront = require("../images/flip_front.png");
+const FlipBack = require("../images/flip_back.png");
+const MoreButton = require("../images/more_button.png");
 //This is cards on homepage previewing projects.
 //Card Wrappers are flex items.
 const CardWrapper = styled.li`
@@ -14,12 +17,11 @@ const CardWrapper = styled.li`
 
     height:300px;
 
-
 `;
 
 const NonFlipped = styled.div`
 
-    width:95%;
+    width:100%;
     display:grid;
     grid-template-columns: 100%;
     grid-template-rows: 200px 1fr 1fr 1fr;
@@ -34,25 +36,19 @@ const NonFlipped = styled.div`
 
 const ThumbNail = styled.div`
 
-    width:80%;
+    width:100%;
 
     height:100%;
     margin:auto;
     border-bottom: 1px solid white;
     background-image: url(${props => props.thumbnail});
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     display:flex;
     flex-direction:column;
     justify-content:flex-end;
     cursor:pointer;
-
-    &:hover{
-
-        padding-right:10%;
-        padding-left:10%;
-    }
 `;
 
 
@@ -78,6 +74,8 @@ const FlipButton = styled.div`
     grid-area: Button;
     justify-self:end;
     background-image: url(${props => props.image});
+    width:32px;
+    height:32px;
 `;
 
 
@@ -86,34 +84,28 @@ const FlipButton = styled.div`
 
 const FlippedContent = styled.div`
 
-    width:95%;
-
-//Fuck dude grid not even needed lol.
-  //  display:grid;
-    grid-template-columns: 100%;
-   // grid-template-rows: 15px 15px 1fr 15px auto auto;
-    grid-template-rows: 20px 20px 50px 10px 2fr 1fr;
-    grid-template-areas: 
-    "Flip"
-    "Header"
-    "Description"
-    "contribution-header"
-    "Contributions"
-    "Footer";
+    width:100%;
+    overflow:hidden;
+    height:100%;
+    position:relative;
 
 `;
 
 const FlippedHeader = styled.div`
-
+    width:100%;
     display:flex;
     grid-area:Flip;
     justify-content: flex-end;
 `;
 
-const Description  = styled.p`
+const Description  = styled.div`
 
     grid-area: Description;
-    font-size:10px;
+    font-size:0.8em;
+    word-wrap: break-word;
+
+    overflow: auto;
+    max-height:30%;
 `;
 
 const ContributionsHeader = styled.div`
@@ -123,47 +115,57 @@ const ContributionsHeader = styled.div`
     text-decoration:underline;
     font-weight:bold;
     font-size: 1em;
-    align-self:start;
-    justify-self:start;
-    height:100%;
+
+
+    width:100%;
+
 `;
 const Contributions = styled.ul`
 
+    width:100%;
     list-style:none;
-    display:flex;
-    width:80%;
     grid-area: Contributions;
+    flex-grow:2;
+    display:flex;
     flex-direction:column;
-    margin:auto;
-    justify-content: space-evenly;
+    align-self: flex-end;
+  
     align-items: flex-start;
 `;
 
 const Contribution = styled.li`
 
-    font-size:12px;
+    font-size:10px;
     width:100%;
     text-align:left;
+    flex-grow:2;
+
     margin:auto;
 `;
 
 const LinksToProject = styled.div`
 
+    position:absolute;
+    width:99%;
+    bottom:0;
     grid-area:Footer;
-    margin-top:40%;
     display:flex;
-    //width:90%;
+    flex-wrap: nowrap;
     justify-content: space-between;
+
+    margin-top: auto;
+
 
 `;
 
 const LinkToMore = styled.div`
 
-    grid-area:Button;
     text-decoration:none;
     color:white;
     text-align:right;
     background-image: url(${props => props.image});
+    height:32px;
+    width:32px;
     background-position: center;
     background-size: contain;
     cursor:pointer;
@@ -229,7 +231,7 @@ class ProjectCard extends Component{
         {this.state.cardFlipped? <FlippedContent>
 
             {/*would change the flip to x instead when flipped or reverse swirly*/}
-            <FlippedHeader><FlipButton  onClick = {this.flipButton} image = ""> Flip </FlipButton>
+            <FlippedHeader><FlipButton  onClick = {this.flipButton} image = {FlipBack}/>
             </FlippedHeader>
             <Title flipped = {true}> {title} </Title>
             
@@ -245,7 +247,7 @@ class ProjectCard extends Component{
 
                     //Just title prob fine, tbh. That's point of full contribution drop down.
                     return <Contribution key ={ contribution }>  <strong> {contribution} </strong> 
-                    {contribution.description} </Contribution>
+                     </Contribution>
                 })}
 
             </Contributions>
@@ -260,7 +262,7 @@ class ProjectCard extends Component{
                     return <ImageLink key = {link.url} href = {link.url}><img src={link.image} style={{width:"25px", height:"25px"}}/></ImageLink>
                 })}
                 </ImageLinks>
-                <LinkToMore onClick = {this.onProjectClicked}> More</LinkToMore>
+                <LinkToMore onClick = {this.onProjectClicked} image = {MoreButton}/>
             
             </LinksToProject>
 
@@ -270,12 +272,11 @@ class ProjectCard extends Component{
         <NonFlipped>
 
             {thumbnail && <ThumbNail thumbnail={thumbnail} onClick = {this.onProjectClicked}>
-            
             </ThumbNail>}
             <Title flipped={false}> {title} </Title>    
 
             <Tags tags={tags} style={{gridName:"tags"}}/>
-            <FlipButton  onClick = {this.flipButton} image = " "> Flip </FlipButton>
+            <FlipButton  onClick = {this.flipButton} image = {FlipFront}/>
 
        </NonFlipped>
         }

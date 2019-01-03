@@ -8,6 +8,10 @@ const ProjectsPageWrapper = styled.div`
 
 `;
 
+export const Contributions = styled.div`
+
+    margin-top:5%;
+`;
 
 
 //Because of the formatting of carousel, don't need to
