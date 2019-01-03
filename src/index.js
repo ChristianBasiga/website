@@ -13,14 +13,22 @@ console.log("env variables", process.env);
 
 const config = {
 
-    apiKey: process.env.FIREBASE_API_KEY,
-    authDomain: process.env.AUTH_DOMAIN,
-    databaseURL: process.env.DATABASE_URL,
-    storageBucket: process.env.STORAGE_BUCKET,
-    messagingSenderId: process.env.MESSAGING_SENDER_ID,
-    projectId: process.env.FIREBASE_PROJECT_ID,
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASE_URL,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
 }
 
+var config = {
+    apiKey: "AIzaSyBrTOXsdWk0V0RHL78w7nAFRT4SGiVpgUE",
+    authDomain: "chrisbtreat-website.firebaseapp.com",
+    databaseURL: "https://chrisbtreat-website.firebaseio.com",
+    projectId: "chrisbtreat-website",
+    storageBucket: "chrisbtreat-website.appspot.com",
+    messagingSenderId: "402247804940"
+  };
 
 firebase.initializeApp(config);
 
