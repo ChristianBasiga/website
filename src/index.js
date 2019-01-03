@@ -21,14 +21,6 @@ const config = {
     projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
 }
 
-var config = {
-    apiKey: "AIzaSyBrTOXsdWk0V0RHL78w7nAFRT4SGiVpgUE",
-    authDomain: "chrisbtreat-website.firebaseapp.com",
-    databaseURL: "https://chrisbtreat-website.firebaseio.com",
-    projectId: "chrisbtreat-website",
-    storageBucket: "chrisbtreat-website.appspot.com",
-    messagingSenderId: "402247804940"
-  };
 
 firebase.initializeApp(config);
 
